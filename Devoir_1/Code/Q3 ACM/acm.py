@@ -31,6 +31,13 @@ def main(args):
     #Vous pouvez découper votre code en d'autres fonctions...
     #You may split your code in other functions...
 
+#Kruskal algorithm (for low density)
+def prim_priority_quue():
+    pass
+
+#Prim algorithm implemented with array (for hight density)
+def prim_array():
+    pass
 
 #NE PAS TOUCHER
 #DO NOT TOUCH
