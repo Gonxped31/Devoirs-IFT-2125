@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
 
     PrimeCalculator Calculator = PrimeCalculator();
     int NthPrime = Calculator.CalculateNthPrime(N);
+    std::cout << "NTH";
 
     std::cout << "Le / The " << N << "e nombre premier est / th prime nomber is : ";
     std::cout << NthPrime << std::endl;
@@ -59,8 +60,8 @@ int main(int argc, char *argv[])
 }
 
 bool TestPrimeCalculator(){
-    std::vector<int> PrimesPositions = {1,3,260,1000,10000};
-    std::vector<int> PrimesNumbers = {2,5,1657,7919,104729};
+    std::vector<int> PrimesPositions = {1,3,260,1000,10000,100000, 1000000, 10000000};
+    std::vector<int> PrimesNumbers = {2,5,1657,7919,104729, 1299709, 15485863, 179424673};
     PrimeCalculator Calculator = PrimeCalculator();
 
     for (int Idx = 0; Idx < PrimesPositions.size(); Idx++){

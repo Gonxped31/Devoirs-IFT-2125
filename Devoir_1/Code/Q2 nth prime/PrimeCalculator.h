@@ -1,3 +1,5 @@
+#include <vector>
+
 //Nom, Matricule
 //Nom, Matricule
 
@@ -9,5 +11,7 @@
 class PrimeCalculator{
     public :
         PrimeCalculator();
+        int PrimeCalculator::CountPrimes(std::vector<int>* primes, int N);
+        int PrimeCalculator::FindPrimes(int N, int s, std::vector<int>* primes);
         int CalculateNthPrime(int N);
 };
