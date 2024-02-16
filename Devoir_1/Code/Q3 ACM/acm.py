@@ -32,39 +32,6 @@ def main(args):
     #You may split your code in other functions...
 
 
-'''
-    public static List<Edge> primJarnik(Graph graph) {
-
-        int numVertices = graph.getNumVertices();
-        boolean[] visited = new boolean[numVertices];
-        List<Edge> mst = new ArrayList<>();
-        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
-
-        int initialVertex = 0;
-        visited[initialVertex] = true;
-        priorityQueue.addAll(graph.getAdjacentEdges(initialVertex)); //O(|E|)
-
-        while (!priorityQueue.isEmpty()) {
-            Edge currentEdge = priorityQueue.poll(); //O(|E| log |E|)
-            int destination = currentEdge.getDestination().getKey();
-
-            if (visited[destination]) {
-                continue;
-            }
-
-            visited[destination] = true;
-            mst.add(currentEdge);
-
-            graph.getAdjacentEdges(destination).forEach(edge -> { //O(|V|)
-                if (!visited[edge.getDestination().getKey()]) {
-                    priorityQueue.add(edge); //O(|E| log |E|)
-                }
-            });
-        }
-
-        return mst;
-    }
-'''
 
 #Kruskal algorithm (for low density)
 #graph = ['nodes': [{'id':id, 'x':..., 'y':...},{'id':id, 'x':..., 'y':...}]

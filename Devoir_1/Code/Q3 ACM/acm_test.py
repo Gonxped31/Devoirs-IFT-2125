@@ -1,6 +1,4 @@
-from queue import PriorityQueue
 import math
-import sys
 import time
 
 def read_problems(input_file):
@@ -49,61 +47,62 @@ def convert_nodes(lines):
     #print(nodes)
     return nodes
 
-def prim(nodes, edges):
-    graph = {node['id']: [] for node in nodes}
-    for edge in edges:
-        graph[edge['source']].append((edge['destination'], edge['weight']))
-        graph[edge['destination']].append((edge['source'], edge['weight']))
-    
-    minimal_weight = 0
-    visited_nodes = set()
-    mst_edges = []
+def kruskal(nodes, edges):
+    mst = []
+    sorted_edges = sort_edges(edges)
+    print("edges",sorted_edges)
+    weights = list(sorted_edges.keys())
+    nodes_id = list(map(lambda x: x['id'], nodes))
+    print("1->", nodes_id)
+    while(len(mst) < (len(nodes) - 1)):
+        print("weights",weights)
+        min_weight = weights[0]
+        min_edges_list = edges[min_weight]
+        print(min_edges_list)
+        if len(min_edges_list) != 0:
+            min_edge = min_edges_list.pop(0)
+            print("min edge ",min_edge)
+            edges[min_weight] = min_edges_list
+            print("2->", nodes_id[min_edge[0]], nodes_id[min_edge[1]])
+            if nodes_id[min_edge[0]] != nodes_id[min_edge[1]]:
+                mst.append(min_weight)
+                if nodes_id[min_edge[0]] > nodes_id[min_edge[1]]:
+                    nodes_id[nodes_id[min_edge[0]]] = nodes_id[min_edge[1]]
+                else:
+                    nodes_id[nodes_id[min_edge[1]]] = nodes_id[min_edge[0]]
+        else:
+            print("minus")
+            weights.pop(0)
 
-    priority_queue = PriorityQueue()
-    initial_node_id = nodes[0]['id']
-    visited_nodes.add(initial_node_id)
+    print("MST", mst)
+    return sum(mst)
 
-    for i in range(len(edges)):
-        initial_node_id = nodes[i]['id']
-        for destination, weight in graph[initial_node_id]:
-            priority_queue.put((weight, initial_node_id, destination))
+def composant():
+    pass
 
-
-
-    while not priority_queue.empty():
-        weight, source, destination = priority_queue.get()
-
-        if destination in visited_nodes:
-            continue
-        
-        mst_edges.append((source, destination, weight))
-        minimal_weight += weight
-        visited_nodes.add(destination)
-
-        for next_destination, next_weight in graph[destination]:
-            if next_destination not in visited_nodes:
-                priority_queue.put((next_weight, destination, next_destination))
-
-    return minimal_weight, mst_edges
+def fusion():
+    pass
 
 def calculate_distance(point_1, point_2):
     return math.sqrt(((point_2['x']-point_1['x'])**2) + ((point_2['y']-point_1['y'])**2))
 
 def create_edges(nodes):
-
-    k = 0
-    edges = []
+    edges = {}
     for i in range(len(nodes)):
         for j in range(i+1, len(nodes)):
-            edges.append(
-                {'source': nodes[i]['id'], 'destination': nodes[j]['id'], 'weight': calculate_distance(nodes[i], nodes[j])}
-            )
-            k += 1
-            edges.append(
-                {'source': nodes[j]['id'], 'destination': nodes[i]['id'], 'weight': calculate_distance(nodes[i], nodes[j])}
-            )
-            k += 1
+            source = nodes[i]
+            destination = nodes[j]
+            weight = calculate_distance(source, destination)
+            if weight not in edges:
+                edges[weight] = [(source['id'], destination['id'])] 
+            else:
+                edges[weight].append((source['id'], destination['id']))
     return edges
+
+def sort_edges(edges):
+    keys = list(edges.keys())
+    keys.sort()
+    return {key: edges[key] for key in keys}
 
 def code(input_file):
     start_parse = time.time()
@@ -113,6 +112,8 @@ def code(input_file):
     for prob in nodes:
         edges.append(create_edges(prob))
 
+    
+
     end_parse = time.time()
 
     #print(f'There is {len(nodes)} nodes and {len(edges)} edges.')
@@ -121,13 +122,14 @@ def code(input_file):
     result = []
     start_time = time.time()
     for node, edge in zip(nodes, edges):
-        result.append(prim(node, edge))
+        result.append(kruskal(node, edge))
     
     end_time = time.time()
 
-    content = prepare_content(result)
-    write(f'./Code/Q3 ACM/output{input_file[-5]}.txt', content)
+    #content = prepare_content(result)
+    #write(f'./Code/Q3 ACM/output{input_file[-5]}.txt', content)
+    print(result)
     #print(f'Result for input {input_file[-5]}: {round(result[0][0], 3)}')
     #print(f'Execution time: {end_time - start_time}')
 
-code('./Code/Q3 ACM/input0.txt')
+code('input1.txt')
