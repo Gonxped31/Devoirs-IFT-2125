@@ -8,7 +8,7 @@ import random # pour le melange des symboles sur chaque carte # for mixing symbo
 import re
 
 class Generator():
-    def __init__(self, order):
+    def __init__(self, order= 7):
         self.order = order
 
     def generate(self, cards_file = "cartes.txt", verbose = False):
@@ -20,7 +20,6 @@ class Generator():
         self.write(matrix, horizon, cards_file)
             
     def write(self, matrix, horizon, file_name):
-        order = len(horizon) - 1
         content = ''
         for line in matrix:
             for elem in line:
@@ -78,5 +77,5 @@ class Generator():
 
         return matrix, self.link_horizon_elemets(horizon, images.pop())
     
-generator = Generator(5)
+generator = Generator(11)
 generator.generate(cards_file='cartes.txt', verbose=True)
