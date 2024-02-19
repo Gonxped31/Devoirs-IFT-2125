@@ -1,8 +1,5 @@
-import time
 import math
-import heapq
 INFINITY = math.inf
-start_timeFinal = time.time()
 
 
 def read_problems(problems, input_file):
@@ -32,8 +29,8 @@ def read_problems(problems, input_file):
     return listOfProblems
 
 
-listofProblems = read_problems(1, "Devoir_1/Code/Q3 ACM/input7.txt")
-firstProblem = listofProblems[0]
+listofProblems = read_problems(
+    1, "Devoirs-IFT-2125/Devoir_1/Code/Q3 ACM/input2.txt")
 
 
 def distanceBetweenTwoCoordinate(coor1, coor2):
@@ -59,7 +56,7 @@ class Node:
         self._parent = newParent
 
     def set_Cost(self, newCost):
-        self._parent = newCost
+        self._cost = newCost
 
     def print(self):
         print(f"node : {self._node}, parent's node {self._parent._node} ")
@@ -77,61 +74,65 @@ class Node:
         return self._cost >= other._cost
 
 
-start_time = time.time()
+def prim_array(ListOfProblems):
 
-matrixOfCost = []
-for i in range(0, len(firstProblem)):
-    row = []
-    for j in range(0, len(firstProblem)):
-        ci = firstProblem[i]
-        cj = firstProblem[j]
-        if (i < j):
-            row.append(distanceBetweenTwoCoordinate(ci, cj))
-        else:
-            row.append(0)
-    matrixOfCost.append(row)
+    string = ""
 
-for i in range(0, len(firstProblem)):
-    matrixOfCost[i][i] = 0
-    for j in range(0, len(firstProblem)):
-        if (i < j):
-            matrixOfCost[j][i] = matrixOfCost[i][j]
+    for problem in ListOfProblems:
+        # Initialisation Matrix of cost
+        matrixOfCost = []
+        for i in range(0, len(problem)):
+            row = []
+            for j in range(0, len(problem)):
+                ci = problem[i]
+                cj = problem[j]
+                if (i < j):
+                    row.append(distanceBetweenTwoCoordinate(ci, cj))
+                else:
+                    row.append(0)
+            matrixOfCost.append(row)
 
-print("--- %s seconds --- : intialisation  " % (time.time() - start_time))
+        for i in range(0, len(problem)):
+            matrixOfCost[i][i] = 0
+            for j in range(0, len(problem)):
+                if (i < j):
+                    matrixOfCost[j][i] = matrixOfCost[i][j]
 
-heapOfNode = []
-heapq.heapify(heapOfNode)
-for i in range(1, len(firstProblem)):
-    heapq.heappush(heapOfNode, Node(i, INFINITY))
-heapq.heappush(heapOfNode, Node(0, INFINITY))
+        # Initialisation list of nodes
+        listOfNode = []
+        for i in range(1, len(problem)):
+            listOfNode.append(Node(i, INFINITY))
+        listOfNode.append(Node(0, 0))
 
-start_time = time.time()
-Tcost = 0
+        Tcost = 0
+        # Prim algorithm with a array
+        while len(listOfNode) > 0:
 
-while len(heapOfNode) > 0:
+            minNode = min(listOfNode)
+            Tcost += matrixOfCost[minNode.get_Parent().get_Node()
+                                  ][minNode.get_Node()]
+            listOfNode.remove(minNode)
 
-    newHeapOfNode = []
-    heapq.heapify(newHeapOfNode)
+            for node in listOfNode:
+                costUandAdjacent = matrixOfCost[minNode.get_Node(
+                )][node.get_Node()]
+                if (costUandAdjacent < node.get_Cost()):
+                    node.set_Parent(minNode)
+                    node.set_Cost(costUandAdjacent)
+        # print(round(Tcost, 3))
+        string += (f"{round(Tcost, 3)}\n")
+    print(string)
+    pass
 
-    minNode = heapq.heappop(heapOfNode)
-    Tcost += matrixOfCost[minNode.get_Parent().get_Node()][minNode.get_Node()]
 
-    for node in heapOfNode:
+prim_array(listofProblems)
 
-        costUandAdjacent = matrixOfCost[minNode.get_Node()][node.get_Node()]
-        nodeName = node.get_Node()
 
-        if (costUandAdjacent < node.get_Cost()):
-            newNode = Node(nodeName, costUandAdjacent)
-            newNode.set_Parent(minNode)
-            heapq.heappush(newHeapOfNode, newNode)
-        else:
-            heapq.heappush(newHeapOfNode, node)
+def write(fileName, content):
+    # écrire la sortie dans un fichier/write output in file
+    file = open(fileName, "w")
+    file.write(content)
+    file.close()
 
-    heapOfNode = newHeapOfNode
 
-print("--- %s seconds --- : Algorithm  " % (time.time() - start_time))
-
-print(Tcost)
-
-print("--- %s seconds Total ---" % (time.time() - start_timeFinal))
+write("filename.txt", "HELLO WORLD J !")

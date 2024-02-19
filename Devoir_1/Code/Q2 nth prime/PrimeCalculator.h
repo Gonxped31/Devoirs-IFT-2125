@@ -6,8 +6,11 @@
 // this file contains the declarations of the methods of the PrimeCalculator class
 // can be modified if you wish to add other methods to the class
 
+
 class PrimeCalculator{
     public :
         PrimeCalculator();
         int CalculateNthPrime(int N);
 };
+
+//int CalculateNthPrime(int N);
