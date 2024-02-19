@@ -129,3 +129,5 @@ def code(input_file):
 
 for i in range(9):
     code(f'input{i}.txt')
+
+

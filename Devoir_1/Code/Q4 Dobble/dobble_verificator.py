@@ -108,7 +108,7 @@ class Verificator():
         return int(len(symbols) != (order**2 + order + 1))
         
 
-'''verificator = Verificator()
+verificator = Verificator()
 result  = verificator.verify(cards_file='cartes_test6.txt', verbose=True)
 print()
-print('Result ->' ,result)'''
+print('Result ->' ,result)
