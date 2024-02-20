@@ -58,6 +58,7 @@ class Creator():
             imgPlace = pathToImgFolder + \
                 str(elementTab[i]) + ".png"
             img = Image.open(imgPlace)
+
             imgSize = img.size
             const = (200/(max(imgSize)))
             img = img.resize((int(const*imgSize[0]), int(const*imgSize[1])))

@@ -1,10 +1,12 @@
+import time
 import math
 INFINITY = math.inf
 
 
 def read_problems(problems, input_file):
     # lecture du fichier/file reading
-    file = open(input_file, "r")
+    path = "Devoir_1/Code/Q3 ACM/" + input_file
+    file = open(path, "r")
     lines = file.readlines()
     i = 0
     temporaryTable = []
@@ -30,7 +32,7 @@ def read_problems(problems, input_file):
 
 
 listofProblems = read_problems(
-    1, "Devoirs-IFT-2125/Devoir_1/Code/Q3 ACM/input2.txt")
+    1, "input7.txt")
 
 
 def distanceBetweenTwoCoordinate(coor1, coor2):
@@ -125,7 +127,9 @@ def prim_array(ListOfProblems):
     pass
 
 
+start = time.time()
 prim_array(listofProblems)
+print(time.time() - start)
 
 
 def write(fileName, content):
@@ -133,6 +137,3 @@ def write(fileName, content):
     file = open(fileName, "w")
     file.write(content)
     file.close()
-
-
-write("filename.txt", "HELLO WORLD J !")
