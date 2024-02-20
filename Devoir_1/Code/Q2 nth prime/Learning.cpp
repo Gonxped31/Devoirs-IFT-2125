@@ -12,15 +12,13 @@ using namespace std;
 
 
 int main()
-{
-     
-     /*
+{ 
     map<int, int> allNumbers;
     vector<int> primeNumber = {1};
     int n;
     int limit;
 
-    n = 1000;
+    n = 10000;
     limit = static_cast<int>(n*log(n*log(n)));
    
 
@@ -33,8 +31,8 @@ int main()
     }
 
 
-    cout << "limit : " << limit << endl;
-    cout << "limit pow : " <<  static_cast<int>((pow(limit, 0.5)) + 1)  << endl;
+    /*cout << "limit : " << limit << endl;
+    cout << "limit pow : " <<  static_cast<int>((pow(limit, 0.5)) + 1)  << endl;*/
 
     for(int i = 2; i < static_cast<int>((pow(limit, 0.5)) + 1) ; i++){
         if(allNumbers[i] == 1){
@@ -62,10 +60,5 @@ int main()
     auto duration = chrono::duration_cast<chrono::seconds>(end_time - start_time);
     cout << "Temps d'execution : " << duration.count() << " seconds" << endl;
     return 0;
-    */
-   PrimeCalculator calculator;
-   int result = calculator.CalculateNthPrime(3);
-
-   cout << "allNumbersSize() : " << result << endl;
-
+ 
 } 

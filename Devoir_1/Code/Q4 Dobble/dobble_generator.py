@@ -135,4 +135,4 @@ class Generator():
 
 
 g = Generator()
-g.generate("Test.txt", True)
+g.generate("cartes.txt", True)

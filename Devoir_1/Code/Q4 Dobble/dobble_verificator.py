@@ -78,6 +78,5 @@ class Verificator():
         return testValue
 
 
-cards_file = "Test.txt"
 v = Verificator()
-print(v.verify(cards_file, False))
+print(v.verify("cartes.txt", False))
