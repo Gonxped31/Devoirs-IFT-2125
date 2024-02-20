@@ -1,7 +1,7 @@
 #include <vector>
 
-//Nom, Matricule
-//Nom, Matricule
+//Gbian Bio Samir, 20250793
+//Sourou Johann, 20227958
 
 // ce fichier contient les declarations des methodes de la classe PrimeCalculator
 // peut être modifié si vous voulez ajouter d'autres méthodes à la classe
