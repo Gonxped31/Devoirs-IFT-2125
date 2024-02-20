@@ -1,5 +1,5 @@
-#Nom, Matricule
-#Nom, Matricule
+#Gbian Bio Samir, 20250793
+#Sourou Johann, 20227958
 
 # cette classe sert a verifier la validite de l'ensemble des cartes du jeu dans le fichier cartes.txt
 # this class is used to check the validity  of the game cards set in the cartes.txt file
@@ -47,9 +47,7 @@ class Verificator():
         file = open(file_name, 'r')
         lines = list(map(lambda x: x.strip().replace('\n', ''), file.readlines()))
         file.close()
-        #print(lines)
         cards = list(map(lambda x: self.format_line(x), lines))
-        #print(cards)
         return cards
 
     def format_line(self, line):
@@ -73,10 +71,7 @@ class Verificator():
         number_of_symbol = len(cards[0])
         for i in range(1, len(cards)):
             if len(cards[i]) != number_of_symbol:
-                #print('test 2 failed: the number of symbols per card is the same for each card')
                 return (2, None)
-        #print()
-        #print('test 2 passed: the number of symbols per card is the same for each card')
         return (0, (number_of_symbol - 1))
 
     # test: each pair of cards always shares one and only one symbol in common
@@ -88,11 +83,8 @@ class Verificator():
             for j in range(i+1, len(cards)):
                 set_2 = set(cards[j])
                 if len(set_1.intersection(set_2)) != 1:
-                    #print()
-                    #print(f'test 3 failed -> {tuple(set_1)} and {tuple(set_2)} : no/too much symbols in common')
                     return 2
-        #print()
-        #print('test 3 passed: each pair of cards always shares one and only one symbol in common')
+
         return 0
         
     # test: the total number of symbols should be optimal
@@ -104,7 +96,6 @@ class Verificator():
             for symbol in card:
                 if symbol not in symbols:
                     symbols.append(symbol)
-        #print(sorted(symbols))
         return int(len(symbols) != (order**2 + order + 1))
         
 
