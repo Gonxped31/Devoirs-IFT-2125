@@ -47,6 +47,9 @@ class Generator():
         return matrix, images
 
     def oblique_lines(self, matrix, horizon, images):
+        '''print('Mat Before', matrix)
+        print('Hroriz Before', horizon)
+        print()'''
         order = self.order
         for jump in range(1, order):
             k = 0
@@ -57,7 +60,9 @@ class Generator():
                     matrix[j][index] += (image,)
                     k += jump
                 k += jump
-                horizon[jump+1] += (image,)            
+                horizon[jump+1] += (image,) 
+        '''print('Mat After', matrix)
+        print('Hroriz After', horizon)'''       
         return matrix, horizon, images
     
     def link_horizon_elemets(self, horizon, image):
@@ -77,5 +82,5 @@ class Generator():
 
         return matrix, self.link_horizon_elemets(horizon, images.pop())
     
-generator = Generator(37)
-generator.generate(cards_file='cartes.txt', verbose=True)
+#generator = Generator(11)
+#generator.generate(cards_file='cartes.txt', verbose=True)
