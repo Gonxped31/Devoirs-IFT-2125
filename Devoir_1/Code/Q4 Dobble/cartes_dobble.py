@@ -102,5 +102,3 @@ if __name__ == '__main__':
         # creation of visual cards
         card_creator = dobble_creator.Creator(300,10)
         card_creator.make_cards(cards_file, True)
-
-

@@ -102,10 +102,6 @@ def create_adjacency_matrix(nodes):
     
     return mat
 
-def print_mat(matrix):
-    for line in matrix:
-        print(line)
-
 def code(input_file):
     start_parse = time.time()
     lines = read_problems(input_file)

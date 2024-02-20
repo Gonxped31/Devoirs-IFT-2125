@@ -132,14 +132,12 @@ class Creator():
         new_height = self.pic_size * math.ceil(images_per_card / images_per_line)
 
         card = Image.new('RGB', (new_width, new_height), 'white')
-    
 
         b,x,y = 0, 0, 0
         for _ in range(images_per_line):
             for j in range(images_per_line):
                 if list_card:
                     im = images[list_card.pop(0)-1]
-                    im = ImageOps.expand(im, border=self.border_size, fill='black')
                     imgSize = im.size
                     const = (200/max(imgSize))
                     im = im.resize((int(const*imgSize[0]),int(const*imgSize[1])))
@@ -149,14 +147,15 @@ class Creator():
             b = j
             x = 0
             y += self.pic_size
-
+        
+        card = ImageOps.expand(card, border=self.border_size, fill='black')
         return card
 
     def get_images(self):
         images = []
-        for file in os.listdir('MangaImg'):
+        for file in os.listdir('images'):
             if file.endswith('.png'):
-                im = Image.open(f'MangaImg\\{file}')
+                im = Image.open(f'images\\{file}')
                 im = im.resize((self.pic_size, self.pic_size))
                 images.append(im)
 
@@ -179,7 +178,6 @@ class Creator():
         list_res = list(result)
         random.shuffle(list_res)
         return tuple(list_res)
-
 
 creator = Creator()
 creator.make_cards()
