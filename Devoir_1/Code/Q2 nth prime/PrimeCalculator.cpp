@@ -48,7 +48,7 @@ int PrimeCalculator::CalculateNthPrime(int N)
 
     for(int i = 3; i<allNumbers.size(); i++){
         if(allNumbers[i] == 1){
-            cout << "i : " << i << endl;
+            //cout << "i : " << i << endl;
             primeNumber.push_back(i);
         }
     }
