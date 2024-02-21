@@ -105,7 +105,7 @@ class Creator():
         if verbose :
             print("***Creation des cartes visuelles***")
 
-        relative_path = 'results'
+        relative_path = 'my_results'
 
         cards, order = self.parse_cards(cards_file)
         images = self.get_images()
@@ -153,7 +153,7 @@ class Creator():
 
     def get_images(self):
         images = []
-        for file in os.listdir('images'):
+        for file in os.listdir('images\\neural_confusion'):
             if file.endswith('.png'):
                 im = Image.open(f'images\\{file}')
                 im = im.resize((self.pic_size, self.pic_size))
