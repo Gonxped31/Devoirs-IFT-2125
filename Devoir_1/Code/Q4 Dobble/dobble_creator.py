@@ -16,7 +16,7 @@ import os
 
 import os
 import glob
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 class Creator():
@@ -31,13 +31,13 @@ class Creator():
         # TODO
 
         allCards = creator.readFile("cartes.txt")
-        pathToImgFolder = "Devoirs-IFT-2125/Devoir_1/Code/Q4 Dobble/images/dogs/"
+        pathToImgFolder = "c:/Users/souro/Desktop/Devoir1-Algo/Devoirs-IFT-2125/Devoir_1/Code/Q4 Dobble/images/MangaImg/"
         for i in range(0, len(allCards)):
             creator.createCard(pathToImgFolder, allCards[i], i+1)
         # a completer
 
     def readFile(self, card_file):
-        nameFile = "Devoirs-IFT-2125/Devoir_1/Code/Q4 Dobble/" + card_file
+        nameFile = "Devoir_1/Code/Q4 Dobble/" + card_file
 
         with open(nameFile, 'r') as file:
             lines = file.readlines()
@@ -48,8 +48,8 @@ class Creator():
         return allCards
 
     def createCard(self, pathToImgFolder, elementTab, noCard):
-        supportCard = Image.new("RGB", (900, 900), "white")
-        folderName = "Devoirs-IFT-2125/Devoir_1/Code/Q4 Dobble/results"
+        supportCard = Image.new("RGB", (900, 900), "black")
+        folderName = "c:/Users/souro/Desktop/Devoir1-Algo/Devoirs-IFT-2125/Devoir_1/Code/Q4 Dobble/results"
 
         if not os.path.exists(folderName):
             os.makedirs(folderName)
@@ -66,6 +66,8 @@ class Creator():
                              resample=Image.BICUBIC)
 
             supportCard.paste(img, ((i//3)*300, (i % 3)*300))
+            supportCard = ImageOps.expand(
+                supportCard, border=1, fill=(0, 0, 0))
 
         namefile = folderName + "/card" + str(noCard) + ".jpg"
         supportCard.save(namefile)
