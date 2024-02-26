@@ -6,19 +6,21 @@ import sys
 
 
 def read_problem(input_file="input.txt"):
-    """Fonctions pour lire/écrire dans les fichier. Vous pouvez les modifier,
-    faire du parsing, rajouter une valeur de retour, mais n'utilisez pas
-    d'autres librairies.
-    Functions to read/write in files. you can modify them, do some parsing,
-    add a return value, but don't use other librairies"""
-
     # lecture du fichier/file reading
     file = open(input_file, "r")
     lines = file.readlines()
-    file.close()
-    # TODO: Compléter ici/Complete here
-    # traiter les lignes du fichier pour le problème
+
     # process the file lines for the problem
+    ldcn = []
+    position = []
+
+    for l in lines[0].split(" "):
+        ldcn.append(int(l))
+    for i in range(1, len(lines)):
+        position.append(int(lines[i]))
+
+    file.close()
+    return (ldcn, position)
 
 
 def write(fileName, content):
@@ -33,9 +35,33 @@ def main(args):
     input_file = args[0]
     output_file = args[1]
 
-    # TODO : Compléter ici/Complete here...
-    # Vous pouvez découper votre code en d'autres fonctions...
-    # You may split your code in other functions...
+    ldcn, position = read_problem(input_file)
+    l = ldcn[0]
+    d = ldcn[1]
+    c = ldcn[2]
+    n = ldcn[3]
+
+    bridge = []
+    for i in range(0, l+1):
+        if (i < c or i > l-c):
+            bridge.append(0)
+        else:
+            bridge.append(1)
+
+    for pos in position:
+        for i in range(pos-d+1, pos+d):
+            bridge[i] = 0
+
+    solution = 0
+
+    for i in range(0, len(bridge)):
+        if bridge[i] == 1:
+            solution += 1
+            for j in range(i-d+1, i+d):
+                bridge[j] = 0
+
+    print(solution)
+    write(output_file, str(solution))
 
 
 # NE PAS TOUCHER
