@@ -1,24 +1,21 @@
-# Nom, Matricule
-# Nom, Matricule
-
 import math
 import sys
 
 
 def read_problem(input_file="input.txt"):
-    """Fonctions pour lire/écrire dans les fichier. Vous pouvez les modifier,
-    faire du parsing, rajouter une valeur de retour, mais n'utilisez pas
-    d'autres librairies.
-    Functions to read/write in files. you can modify them, do some parsing,
-    add a return value, but don't use other librairies"""
 
     # lecture du fichier/file reading
     file = open(input_file, "r")
     lines = file.readlines()
-    file.close()
-    # TODO: Compléter ici/Complete here
-    # traiter les lignes du fichier pour le problème
+
     # process the file lines for the problem
+    nbDay = int(lines[0])
+    fireWoodBags = []
+    for i in lines[1].split(" "):
+        fireWoodBags.append(int(i))
+
+    file.close()
+    return (nbDay, fireWoodBags)
 
 
 def write(fileName, content):
@@ -28,14 +25,38 @@ def write(fileName, content):
     file.close()
 
 
+def calculateNotUsedWood(fireWoodBags, bTest):
+    rapport = []
+    for wood in fireWoodBags:
+        if (wood % bTest == 0):
+            rapport.append(round(wood/bTest))
+        else:
+            rapport.append(round(wood/bTest + 0.5))
+    return sum(rapport)
+
+
+def binarySearch(fireWoodBags, x):
+    return binaireRecu(fireWoodBags, 1, max(fireWoodBags), x)
+
+
+def binaireRecu(fireWoodBags, i, j, x):
+    if calculateNotUsedWood(fireWoodBags, i) == calculateNotUsedWood(fireWoodBags, j):
+        return i
+    else:
+        k = (i+j)//2
+        if x >= calculateNotUsedWood(fireWoodBags, k):
+            return binaireRecu(fireWoodBags, i, k, x)
+        else:
+            return binaireRecu(fireWoodBags, k+1, j, x)
+
+
 def main(args):
     """Fonction main/Main function"""
     input_file = args[0]
     output_file = args[1]
 
-    # TODO : Compléter ici/Complete here...
-    # Vous pouvez découper votre code en d'autres fonctions...
-    # You may split your code in other functions...
+    nbDay, fireWoodBags = read_problem(input_file)
+    write(output_file, str(binarySearch(fireWoodBags, nbDay)))
 
 
 # NE PAS TOUCHER

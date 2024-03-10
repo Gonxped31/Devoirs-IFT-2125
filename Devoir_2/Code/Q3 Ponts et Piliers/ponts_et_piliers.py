@@ -1,8 +1,9 @@
-# Nom, Matricule
-# Nom, Matricule
+# Gbian, Bio Samir, 20250793
+# Sourou Johann, 20227958
 
 import math
 import sys
+import time
 
 
 def read_problem(input_file="input.txt"):
@@ -32,14 +33,13 @@ def write(fileName, content):
 
 def main(args):
     """Fonction main/Main function"""
+    start = time.time()
     input_file = args[0]
     output_file = args[1]
-
     ldcn, position = read_problem(input_file)
     l = ldcn[0]
     d = ldcn[1]
     c = ldcn[2]
-    n = ldcn[3]
 
     bridge = []
     for i in range(0, l+1):
@@ -53,15 +53,18 @@ def main(args):
             bridge[i] = 0
 
     solution = 0
+    pause = 0
 
     for i in range(0, len(bridge)):
+        if (i < pause):
+            continue
         if bridge[i] == 1:
             solution += 1
-            for j in range(i-d+1, i+d):
-                bridge[j] = 0
+            pause = i+d
 
-    print(solution)
     write(output_file, str(solution))
+    print(f"solution : {solution}")
+    print(f"Exécution : {time.time() - start}")
 
 
 # NE PAS TOUCHER
