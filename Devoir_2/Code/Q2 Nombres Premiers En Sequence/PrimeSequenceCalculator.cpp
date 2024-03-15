@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-// Nom, Matricule
-// Nom, Matricule
+// Gbian Bio Samir 20250793
+// Sourou Johann 20227958
 
 #include "PrimeSequenceCalculator.h"
 #include <vector>
@@ -30,6 +30,7 @@ bool PrimeSequenceCalculator::IsPrime(int num) {
     return true;
 }
 
+// Generate a tab with all primes number smaller than N
 std::vector<std::string> PrimeSequenceCalculator::GeneratePrimes(int N) {
     std::vector<std::string> primes;
     for (int num = 2; num < N; ++num) {
@@ -43,6 +44,7 @@ std::vector<std::string> PrimeSequenceCalculator::GeneratePrimes(int N) {
     return primes;
 }
 
+// Find all possible permutation of the number in input
 std::set<std::string> PrimeSequenceCalculator::Permuts(const std::string& prime) {
     std::string temp = prime;
     std::sort(temp.begin(), temp.end());
@@ -53,6 +55,7 @@ std::set<std::string> PrimeSequenceCalculator::Permuts(const std::string& prime)
     return perms;
 }
 
+// Filter the permutation of the number N and reject permutation that aren't prime number, that have a length greater than N or have a value greater than N
 std::vector<int> PrimeSequenceCalculator::FilterAndConvert(const std::set<std::string>& perms, int N) {
     std::vector<int> filtered;
     for (const auto& perm : perms) {
@@ -64,6 +67,7 @@ std::vector<int> PrimeSequenceCalculator::FilterAndConvert(const std::set<std::s
     return filtered;
 }
 
+// Find and return k which is the distance between 2 terms of the sequence
 int PrimeSequenceCalculator::GetK(int permut, int prime, int i) {
     int k = (permut - prime) / i;
     return (k % i == 0 && k > 0) ? k : -1;

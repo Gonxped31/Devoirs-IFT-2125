@@ -1,4 +1,3 @@
-import math
 import sys
 
 # Gbian Bio Samir 20250793
@@ -27,8 +26,11 @@ def write(fileName, content):
     file.write(content)
     file.close()
 
+# Calculate the number of day when we take a given b
+# The order of this function is O(S), because we iterate on the number of bag
 
-def calculateNotUsedWood(fireWoodBags, bTest):
+
+def frequencyOfWoodPerDay(fireWoodBags, bTest):
     rapport = []
     for wood in fireWoodBags:
         if (wood % bTest == 0):
@@ -37,17 +39,22 @@ def calculateNotUsedWood(fireWoodBags, bTest):
             rapport.append(round(wood/bTest + 0.5))
     return sum(rapport)
 
+# Do a binary search to find the value of the first b with the frequenceOfWoodPerDay is equal to the number of Day given
+# The binary search is carried out in log(Max(W)) (because the possible value of b are between 1 and max(W))
+# for each recurrsion we use 1 or 2 time frequencyOfWoodPerDay ( O(s) )
+# The order of this function is therefore O( s*log(Max(W)))
+
 
 def binarySearch(fireWoodBags, x):
     return binaireRecu(fireWoodBags, 1, max(fireWoodBags), x)
 
 
 def binaireRecu(fireWoodBags, i, j, x):
-    if calculateNotUsedWood(fireWoodBags, i) == calculateNotUsedWood(fireWoodBags, j):
+    if frequencyOfWoodPerDay(fireWoodBags, i) == frequencyOfWoodPerDay(fireWoodBags, j):
         return i
     else:
         k = (i+j)//2
-        if x >= calculateNotUsedWood(fireWoodBags, k):
+        if x >= frequencyOfWoodPerDay(fireWoodBags, k):
             return binaireRecu(fireWoodBags, i, k, x)
         else:
             return binaireRecu(fireWoodBags, k+1, j, x)

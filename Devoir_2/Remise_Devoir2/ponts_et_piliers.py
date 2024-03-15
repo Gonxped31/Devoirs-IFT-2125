@@ -17,6 +17,8 @@ def write(fileName, content):
     file.write(content)
     file.close()
 
+# Main function
+
 
 def main(args):
     input_file = args[0]
@@ -26,7 +28,10 @@ def main(args):
     p = inputs.pop(0)
     l, d, c, n = p[0], p[1], p[2], p[3]
 
-    if n == 0:
+    # calcul the number of pillars to build
+    if 2*c < l:
+        write(output_file, "0")
+    elif n == 0:
         write(output_file, str(math.floor((l-2*c)/d) + 1))
     else:
         positions = tuple(sorted(tuple(map(lambda x: x[0], inputs))))
