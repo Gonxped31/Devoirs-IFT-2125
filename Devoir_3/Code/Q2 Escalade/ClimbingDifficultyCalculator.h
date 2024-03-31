@@ -3,6 +3,7 @@
 
 //#include <vector>
 #include <string>
+#include <vector>
 
 // ce fichier contient les declarations des methodes de la classe ClimbingDifficultyCalculator
 // peut être modifié si vous voulez ajouter d'autres méthodes à la classe
@@ -12,5 +13,6 @@
 class ClimbingDifficultyCalculator{
     public :
         ClimbingDifficultyCalculator();
+        std::vector<std::vector<int>> Reader(std::string);
         int CalculateClimbingDifficulty(std::string);
 };
