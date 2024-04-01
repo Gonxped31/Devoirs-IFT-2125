@@ -76,6 +76,13 @@ class Maze:
             print("Error in removeWall")
         return
 
+    def cellsWhohaveThisWall(self, k):
+        cells = []
+        for i in range(0, len(self.AllCells)):
+            if (self.AllCells[i]).contain(k):
+                cells.append(i)
+        return cells
+
 
 class Cell:
     def __init__(self, n1, n2, n3, n4) -> None:
@@ -161,125 +168,44 @@ def write(fileName, content):
         file.write(content)
 
 
-"""
-mazeTest = print(getMazeEdges(createMaze(4, 4)))
-mazeTest = print(len(getMazeEdges(createMaze(4, 4))))
-"""
+n = 2
+m = 3
+maze1 = Maze(n, m)
 
-cell_size = 10  # mm
-wall_height = 10  # mm
-wall_thickness = 1  # mm
+setForCells = []
+allEgdes = []
 
-
-def drawingMaze(maze):
-    global cell_size
-    global wall_height
-    global wall_thickness
-
-    n, m = maze.getSize()
-    mazeEdges = getMazeEdges(maze)
-
-    if (cell_size*max(n, m) > 120):
-        cell_size = 120//max(n, m) + 1
-
-    title = f"// Labyrinth generated for openscad \n// IFT2125 - H24 \n// Authors : Bio Samir Gbian, Johann Sourou"
-    base = """
-        difference(){
-        union(){
-        // base plate
-        translate([0,0,0]){"""
-
-    bigString = title + base + \
-        f"cube({[n*cell_size, m*cell_size, 1]}, center=false)" + ";}" + "\n"
-
-    for k in range(0, len(mazeEdges)):
-        i = mazeEdges[k]
-        if i <= m*(n+1):
-            y = cell_size*(n - (i-1)//m)
-            x = cell_size*((i-1) % m)
-            z = 0
-            str = f" translate({[x, y, z]}){{cube([{cell_size},{
-                wall_thickness},{wall_height}], center=false);}}"
-            bigString += str + "\n"
-        else:
-            l = i-m*(n+1)
-            y = cell_size*(n - ((l-1)//(m+1)) - 1)
-            x = cell_size*((l-1) % (m+1))
-            z = 0
-            str = f" translate({[x, y, z]})" + \
-                f"{{rotate([0,0,90]){{cube([{cell_size+1},{wall_thickness},{
-                wall_height}], center=false);}}}}"
-            bigString += str + "\n"
-    bigString += """
-        // logo
-        translate([1,-0.2,1]){
-        rotate([90,0,0]){
-        linear_extrude(1) text( "IFT2125 RM", size= 7.0);
-        }
-        }
-        } }
-        """
-
-    return bigString
+for i in range(0, n*m):
+    setForCells.append(set(maze1.getCell(i).getWall()))
 
 
-# mazeInString = drawingMaze(createMaze(10, 10))
-# write("maze.txt", mazeInString)
-# print(mazeInString)
+for i in range(1, 2*n*m + m + n + 1):
+    allEgdes.append(i)
 
 
-###########################################################
-maze = createMaze(10, 10)
-cell_size = 10  # mm
-wall_height = 10  # mm
-wall_thickness = 1  # mm
+def removeWallForKruskal(tabSet, wall):
+    newSet = set([])
+    setToRemove = []
+    for i in range(0, len(tabSet)):
+        if wall in setForCells[i]:
+            newSet = newSet.union(tabSet[i])
+            setToRemove.append(tabSet[i])
 
-n, m = maze.getSize()
-mazeEdges = getMazeEdges(maze)
+    if len(setToRemove) == 1:
+        return tabSet
 
-if (cell_size*max(n, m) > 120):
-    cell_size = 120//max(n, m) + 1
-
-title = f"// Labyrinth generated for openscad \n// IFT2125 - H24 \n// Authors : Bio Samir Gbian, Johann Sourou"
-base = """
-    difference(){
-    union(){
-    // base plate
-    translate([0,0,0]){"""
+    for i in setToRemove:
+        tabSet.remove(i)
+    newSet = newSet.difference({wall})
+    tabSet.append(newSet)
+    return tabSet
 
 
-bigString = title + base + \
-    f"cube({[n*cell_size, m*cell_size, 1]}, center=false)" + ";}" + "\n"
+for i in range(0, 2*n*m + m + n):
+    random.shuffle(allEgdes)
+    edge = allEgdes.pop()
+    setForCells = removeWallForKruskal(setForCells, edge)
 
 
-for k in range(0, len(mazeEdges)):
-    i = mazeEdges[k]
-    if i <= m*(n+1):
-        y = cell_size*(n - (i-1)//m)
-        x = cell_size*((i-1) % m)
-        z = 0
-        str = f" translate({[x, y, z]}){{cube([{cell_size},{
-            wall_thickness},{wall_height}], center=false);}}"
-        bigString += str + "\n"
-    else:
-        l = i-m*(n+1)
-        y = cell_size*(n - ((l-1)//(m+1)) - 1)
-        x = cell_size*((l-1) % (m+1))
-        z = 0
-        str = f" translate({[x, y, z]})" + \
-            f"{{rotate([0,0,90]){{cube([{cell_size+1},{wall_thickness},{
-            wall_height}], center=false);}}}}"
-        bigString += str + "\n"
-bigString += """
-    // logo
-    translate([1,-0.2,1]){
-    rotate([90,0,0]){
-    linear_extrude(1) text( "IFT2125 RM", size= 7.0);
-    }
-    }
-    } }
-    """
-
-# Cell.
-# write("maze.txt", bigString)
-################################################################
+print(setForCells)
+print(len(setForCells[0]))
