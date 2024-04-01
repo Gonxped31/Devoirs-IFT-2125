@@ -15,9 +15,28 @@
 #return value : Minimum number of tests needed in the worst case
 #               to find the solidity threshold of a window
 #Must return the answer as an int. 
+import sys
+
+
 def vitre(N, k):
+
+    T = [[float('inf')] * (N + 1) for _ in range(k + 1)]
+
+    if N == 1:
+        return 0
+
+    for i in range(1, k + 1):
+        T[i][0] = 0
     
-    return -1
+    for j in range(1, N + 1):
+        T[1][j] = j
+
+    for i in range(2, k + 1):
+        for j in range(1, N + 1):
+            for x in range(0, j):
+                T[i][j] = min(T[i][j], max(T[i - 1][x], T[i][j - x - 1]) + 1)
+
+    return T[k][N-1]
 
 
 #Fonction main, vous ne devriez pas avoir à modifier
@@ -25,7 +44,7 @@ def vitre(N, k):
 def main(args):
     N = int(args[0])
     k = int(args[1])
-
+    
     answer = vitre(N,k)
     print(answer)
 
