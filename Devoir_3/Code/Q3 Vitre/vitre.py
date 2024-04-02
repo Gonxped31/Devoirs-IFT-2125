@@ -1,5 +1,5 @@
-#Nom, matricule
-#Nom, matricule
+#Gbian Bio Samir, 20250793
+#Sourou Johann, 20227958
 
 #Fonction à compléter. Ne modifiez pas sa signature.
 #N : Force maximale
