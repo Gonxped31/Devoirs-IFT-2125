@@ -65,7 +65,7 @@ def algorithm(N, primes) -> None:
             sequences = tuple(sorted(sequences))
             valid_sequences.append(sequences)
         
-    print(valid_sequences)
+    print(len(valid_sequences))
 
 N = 100000
 primes = generate_primes(N)

@@ -82,5 +82,5 @@ class Generator():
 
         return matrix, self.link_horizon_elemets(horizon, images.pop())
     
-#generator = Generator(11)
-#generator.generate(cards_file='cartes.txt', verbose=True)
+generator = Generator(7)
+generator.generate(cards_file='cartes.txt', verbose=True)

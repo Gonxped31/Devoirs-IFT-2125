@@ -21,6 +21,7 @@ def main(args):
     output_file = args[1]
 
     inputs = read_problem(input_file)
+    print(inputs)
     p = inputs.pop(0)
     l, d, c, n = p[0], p[1], p[2], p[3]
 

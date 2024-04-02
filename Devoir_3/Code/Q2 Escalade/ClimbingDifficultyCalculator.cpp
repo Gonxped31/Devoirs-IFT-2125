@@ -1,5 +1,5 @@
-// Gbian Bio Samir, Matricule
-// Sourou Johann, Matricule
+// Gbian Bio Samir, 20250793
+// Sourou Johann, 20227958
 
 #include "ClimbingDifficultyCalculator.h"
 #include <fstream>

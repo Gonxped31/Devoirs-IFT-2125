@@ -2,7 +2,6 @@
 algo(N):
 	primes <-- generate_primes(N)
 	valid_sequences <-- empty
-	valid_ks <-- empty
 	for each prime in primes:
 		permutations <-- get_permutations(prime)
 		valid_permuts <-- filter_prime_numbers(permutations) //get the permutations that are primes and with the same length as prime
