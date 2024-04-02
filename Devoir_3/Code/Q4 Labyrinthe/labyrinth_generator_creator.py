@@ -247,6 +247,7 @@ class Generator():
     def SetStrategy(self, new_strategy):
         self.strategy = new_strategy
 
+    # we can chose the size of the maze with the value of n and m
     def Generate(self):
         maze = Maze(n=12, m=12)
         maze = self.strategy.Apply(maze)
