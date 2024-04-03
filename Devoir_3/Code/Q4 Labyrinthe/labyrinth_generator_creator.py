@@ -252,7 +252,7 @@ class Generator():
 
     # we can chose the size of the maze with the value of n and m
     def Generate(self):
-        maze = Maze(n=12, m=12)
+        maze = Maze(n=20, m=15)
         maze = self.strategy.Apply(maze)
         return maze
 
@@ -279,9 +279,6 @@ class Creator():
 
         n, m = maze.getSize()
         mazeEdges = Creator.getMazeEdges(self, maze)
-
-        if (cell_size*max(n, m) > 120):
-            cell_size = 120//max(n, m)
 
         title = f"// Labyrinth generated for openscad \n// IFT2125 - H24 \n// Authors : Bio Samir Gbian, Johann Sourou"
         base = """
@@ -320,7 +317,9 @@ class Creator():
             }
             } }
             """
-        print(bigString)
+        print("Fichier scad créé avec succes")
+        with open("maze.scad", "w") as file:
+            file.write(bigString)
         return bigString
 
 
