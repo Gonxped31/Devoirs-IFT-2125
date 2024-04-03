@@ -1,3 +1,6 @@
+# Gbian Bio Samir, 20250793
+# Sourou Johann, 20227958
+
 from collections import deque
 import sys
 import random
