@@ -9,7 +9,7 @@
 # DO NOT SUBMIT ON STUDIUM. ONLY SUBMIT firewood_bags.py
 
 import firewood_bags
-
+import time
 
 def verifyAns(fileName, ExpectedVals):
     file = open(fileName, "r")
@@ -42,7 +42,10 @@ if __name__ == "__main__":
     expected = [[2], [20], [20], [10], [1], [4], [30], [3], [27], [369], [144]]
     for i in range(len(expected)):
         try:
+            start = time.time()
             firewood_bags.main(["input" + str(i) + ".txt", "output" + str(i) + ".txt"])
+            end = time.time()
+            print('Time:', end-start)
             verifyAns("output" + str(i) + ".txt", expected[i])
             print("Test " + str(i) + " OK\n")
         except Exception as e:

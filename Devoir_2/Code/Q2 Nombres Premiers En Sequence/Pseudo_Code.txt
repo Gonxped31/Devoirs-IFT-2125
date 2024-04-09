@@ -1,0 +1,35 @@
+
+algo(N):
+	primes <-- generate_primes(N)
+	valid_sequences <-- empty
+	for each prime in primes:
+		permutations <-- get_permutations(prime)
+		valid_permuts <-- filter_prime_numbers(permutations) //get the permutations that are primes and with the same length as prime
+		sequences <-- empty_set
+		sequences <-- prime
+		ks <-- empty
+		for permut in valid_permuts:
+			k = get_k(permut, prime, sequences.length)
+			S = prime + sequences.length * ks
+			if S in valid_permuts:
+				ks <-- k
+				sequences <-- permut
+				sequences <-- S
+
+		if sequences.length >= 3:
+			valid_sequences <-- get_all_sequences(sequences)
+			valid_ks <-- ks
+		
+	return valid_sequences
+		
+get_permutations(prime):
+	TODO
+
+// Get k based on the formual of the point 3.
+get_K(permut, prime, i):
+	 k <-- (prime/i):
+		return k if k % i == 0 else None
+	
+//All S_i whith S_0 as starter. For S_0 S_1 S_2 S_3, we have : S_0 S_1 S_2, S_0 S_1 S_3, S_0 S_2 S_3.
+get_all_sequences(sequences):
+	TODO

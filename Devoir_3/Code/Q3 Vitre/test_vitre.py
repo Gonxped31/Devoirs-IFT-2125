@@ -9,6 +9,7 @@
 #DO NOT SUBMIT ON STUDIUM. ONLY SUBMIT vitre.py
 
 import vitre
+import time
 
 def verifyAns(answer, ExpectedVal):
     if(answer != ExpectedVal):
@@ -30,14 +31,13 @@ if __name__ == '__main__':
     expected = [1,3,2,2,24,7,5,5,5,7,10,11]
     for i in range(len(expected)):
         try:
+            start = time.time()
             answer = vitre.vitre(inputs[i][0], inputs[i][1])
+            end = time.time()
             verifyAns(answer, expected[i])
-            print("Test " + str(i+1) + "/" + str(len(expected)) + " OK\n")
+            print("Test " + str(i+1) + "/" + str(len(expected)) + " OK. Time = " + str((end - start)) + "s \n")
         except Exception as e: 
             print("Test " + str(i+1) + "/" + str(len(expected)) + " Fail\n")
             print(e)
             print()
-    
-
-    
     

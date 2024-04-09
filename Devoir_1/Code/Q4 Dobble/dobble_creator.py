@@ -97,7 +97,7 @@ import random
 # https://pillow.readthedocs.io/en/stable/reference/Image.html
 
 class Creator():
-    def __init__(self, pic_size=300, border_size=10):
+    def __init__(self, pic_size=300, border_size=100):
         self.pic_size = pic_size
         self.border_size = border_size
 
@@ -105,7 +105,7 @@ class Creator():
         if verbose :
             print("***Creation des cartes visuelles***")
 
-        relative_path = 'my_results'
+        relative_path = 'results'
 
         cards, order = self.parse_cards(cards_file)
         images = self.get_images()
@@ -130,6 +130,7 @@ class Creator():
         list_card = list(numeric_card)
         new_width = self.pic_size * images_per_line
         new_height = self.pic_size * math.ceil(images_per_card / images_per_line)
+        border_size = self.border_size
 
         card = Image.new('RGB', (new_width, new_height), 'white')
 
@@ -138,6 +139,7 @@ class Creator():
             for j in range(images_per_line):
                 if list_card:
                     im = images[list_card.pop(0)-1]
+                    im = ImageOps.expand(im, border=5, fill='black')
                     imgSize = im.size
                     const = (200/max(imgSize))
                     im = im.resize((int(const*imgSize[0]),int(const*imgSize[1])))
@@ -148,17 +150,18 @@ class Creator():
             x = 0
             y += self.pic_size
         
-        card = ImageOps.expand(card, border=self.border_size, fill='black')
+        card = ImageOps.expand(card, border=border_size, fill='black')
         return card
 
     def get_images(self):
         images = []
-        for file in os.listdir('images\\neural_confusion'):
-            if file.endswith('.png'):
-                im = Image.open(f'images\\{file}')
+        for file in os.listdir('img_dobble_jpg'):
+            if file.endswith('.jpg'):
+                im = Image.open(f'img_dobble_jpg\\{file}')
                 im = im.resize((self.pic_size, self.pic_size))
                 images.append(im)
 
+        random.shuffle(images)
         return images
 
     def parse_cards(self, file_name):
@@ -179,5 +182,5 @@ class Creator():
         random.shuffle(list_res)
         return tuple(list_res)
 
-creator = Creator()
+creator = Creator(pic_size=300, border_size=30)
 creator.make_cards()

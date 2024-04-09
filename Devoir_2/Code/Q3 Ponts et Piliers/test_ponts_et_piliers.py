@@ -9,7 +9,7 @@
 # DO NOT SUBMIT ON STUDIUM. ONLY SUBMIT ponts_et_piliers.py
 
 import ponts_et_piliers as pep
-
+import time
 
 def verifyAns(fileName, ExpectedVals):
     file = open(fileName, "r")
@@ -58,8 +58,11 @@ if __name__ == "__main__":
     ]
     for i in range(len(expected)):
         try:
+            start = time.time()
             pep.main(["input" + str(i) + ".txt", "output" + str(i) + ".txt"])
+            end = time.time()
             verifyAns("output" + str(i) + ".txt", expected[i])
+            print('Time:', end - start)
             print("Test " + str(i) + " OK\n")
         except Exception as e:
             print("Test " + str(i) + " Fail")

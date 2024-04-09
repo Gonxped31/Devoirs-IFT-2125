@@ -6,37 +6,39 @@ import sys
 
 
 def read_problem(input_file="input.txt"):
-    """Fonctions pour lire/écrire dans les fichier. Vous pouvez les modifier,
-    faire du parsing, rajouter une valeur de retour, mais n'utilisez pas
-    d'autres librairies.
-    Functions to read/write in files. you can modify them, do some parsing,
-    add a return value, but don't use other librairies"""
-
-    # lecture du fichier/file reading
-    file = open(input_file, "r")
-    lines = file.readlines()
-    file.close()
-    # TODO: Compléter ici/Complete here
-    # traiter les lignes du fichier pour le problème
-    # process the file lines for the problem
-
+    return list(map(lambda x: tuple(map(lambda y: int(y), x)), 
+                    list(map(lambda x: x.split(' '), 
+                             list(map( lambda x: x.replace('\n', ''), 
+                                      open(input_file, 'r').readlines()))))))
 
 def write(fileName, content):
-    """Écrire la sortie dans un fichier/write output in file"""
     file = open(fileName, "w")
     file.write(content)
-    file.close()
-
+    file.close() 
 
 def main(args):
-    """Fonction main/Main function"""
     input_file = args[0]
     output_file = args[1]
 
-    # TODO : Compléter ici/Complete here...
-    # Vous pouvez découper votre code en d'autres fonctions...
-    # You may split your code in other functions...
+    inputs = read_problem(input_file)
+    print(inputs)
+    p = inputs.pop(0)
+    l, d, c, n = p[0], p[1], p[2], p[3]
 
+    if n == 0:
+        write(output_file, str(math.floor((l-2*c)/d) + 1))
+    else:
+        positions = tuple(sorted(tuple(map(lambda x: x[0] ,inputs))))
+        count, i, j = 0, positions[0], positions[-1]
+
+        count += math.floor((i-c)/d) + math.floor((l-c-j)/d)
+
+        for k in range(len(positions)-1):
+            dist = positions[k+1] - positions[k]
+            if dist > d:
+                count += math.floor(dist/d) - 1
+
+        write(output_file, str(count))     
 
 # NE PAS TOUCHER
 # DO NOT TOUCH
