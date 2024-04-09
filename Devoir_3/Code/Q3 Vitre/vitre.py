@@ -44,7 +44,6 @@ def vitre(N, k):
 def main(args):
     N = int(args[0])
     k = int(args[1])
-    
     answer = vitre(N,k)
     print(answer)
 

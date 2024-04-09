@@ -16,3 +16,4 @@ class ClimbingDifficultyCalculator{
         std::vector<std::vector<int>> Reader(std::string);
         int CalculateClimbingDifficulty(std::string);
 };
+

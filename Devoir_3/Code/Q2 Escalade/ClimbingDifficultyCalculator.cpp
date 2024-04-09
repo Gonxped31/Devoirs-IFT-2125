@@ -7,7 +7,6 @@
 // #include <unordered_set>
 // #include <math.h>
 #include <algorithm>
-#include <iostream>
 
 // ce fichier contient les definitions des methodes de la classe ClimbingDifficultyCalculator
 // this file contains the definitions of the methods of the ClimbingDifficultyCalculator class
@@ -93,4 +92,3 @@ int ClimbingDifficultyCalculator::CalculateClimbingDifficulty(std::string filena
     }
 
     return *std::min_element(distTab.back().begin(), distTab.back().end());
-}
