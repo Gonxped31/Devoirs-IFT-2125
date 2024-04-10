@@ -252,7 +252,7 @@ class Generator():
 
     # we can chose the size of the maze with the value of n and m
     def Generate(self):
-        maze = Maze(n=20, m=15)
+        maze = Maze(n=20, m=20)
         maze = self.strategy.Apply(maze)
         return maze
 
@@ -312,7 +312,7 @@ class Creator():
             // logo
             translate([1,-0.2,1]){
             rotate([90,0,0]){
-            linear_extrude(1) text( "IFT2125 RM", size= 7.0);
+            linear_extrude(0) text( "Samir G.", size= 7.0);
             }
             }
             } }
